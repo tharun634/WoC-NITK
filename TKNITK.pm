@@ -35,7 +35,18 @@ sub msg_length {
 		$pms->set_tag ("TK_TAG", "Debug TKNITK");
 		my ($substr) = ($body =~/>(.*)\</);
 		dbg($substr);
-		dbg($body);
+		#dbg($body);
+		dbg("\n");
+		my $max = 0;
+		my %count;
+		foreach my $str (split / /,$substr) {
+		$count{$str}++;
+		if($count{$str}>=$max)
+		{	
+			$max=$count{$str} ;
+			if($max >=4){ dbg($str);return 1;} 
+			#hits if a word repeats more than 4 times
+		}
+		#hits if a body is longer than 100 characters
                 return (length $substr >=10)? 1 : 0;
 }
-
